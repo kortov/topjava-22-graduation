@@ -1,4 +1,4 @@
-package ru.kortov.topjava.graduation.exception;
+package ru.kortov.topjava.graduation.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

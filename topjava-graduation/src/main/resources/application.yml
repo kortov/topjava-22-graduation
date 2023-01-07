@@ -41,7 +41,7 @@ spring:
 
 logging:
   level:
-    root: WARN
+    root: INFO
     ru.kortov.topjava: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
 

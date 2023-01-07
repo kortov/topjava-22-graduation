@@ -10,7 +10,7 @@
     </parent>
     <groupId>ru.kortov</groupId>
     <artifactId>topjava-graduation</artifactId>
-    <version>0.0.1</version>
+    <version>1.0</version>
     <name>Topjava Graduation</name>
     <description>Restaurants voting application</description>
 
@@ -18,6 +18,7 @@
         <java.version>17</java.version>
         <springdoc.version>2.0.2</springdoc.version>
         <apache-commons-lang.version>3.12.0</apache-commons-lang.version>
+        <jsoup.version>1.15.3</jsoup.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -70,10 +75,22 @@
             <artifactId>h2</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+        </dependency>
+        <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!--Tests-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -121,6 +138,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!--https://junit.org/junit5/docs/current/user-guide/#running-tests-build-maven -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>

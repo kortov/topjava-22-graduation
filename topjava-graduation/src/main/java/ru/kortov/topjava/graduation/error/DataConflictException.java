@@ -1,4 +1,4 @@
-package ru.kortov.topjava.graduation.exception;
+package ru.kortov.topjava.graduation.error;
 
 // TODO: extend AppException
 public class DataConflictException extends RuntimeException {
