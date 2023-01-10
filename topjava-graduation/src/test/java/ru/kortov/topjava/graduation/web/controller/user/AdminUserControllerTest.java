@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.kortov.topjava.graduation.web.controller.user.AdminUserController.REST_URL;
+import static ru.kortov.topjava.graduation.web.controller.user.AdminUserController.ADMIN_USER_REST_URL;
 import static ru.kortov.topjava.graduation.web.controller.user.UniqueMailValidator.EXCEPTION_DUPLICATE_EMAIL;
 import static ru.kortov.topjava.graduation.web.controller.user.UserTestData.ADMIN_ID;
 import static ru.kortov.topjava.graduation.web.controller.user.UserTestData.ADMIN_MAIL;
@@ -35,7 +35,7 @@ import static ru.kortov.topjava.graduation.web.controller.user.UserTestData.user
 
 class AdminUserControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL_SLASH = REST_URL + '/';
+    private static final String REST_URL_SLASH = ADMIN_USER_REST_URL + '/';
 
     @Autowired
     private UserRepository userRepository;
@@ -97,14 +97,14 @@ class AdminUserControllerTest extends AbstractControllerTest {
 
     @Test
     void getUnauthorized() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(ADMIN_USER_REST_URL))
             .andExpect(status().isUnauthorized());
     }
 
     @Test
     @WithUserDetails(value = USER_MAIL)
     void getForbidden() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(ADMIN_USER_REST_URL))
             .andExpect(status().isForbidden());
     }
 
@@ -126,7 +126,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void createWithLocation() throws Exception {
         User newUser = getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+        ResultActions action = perform(MockMvcRequestBuilders.post(ADMIN_USER_REST_URL)
                                                              .contentType(MediaType.APPLICATION_JSON)
                                                              .content(jsonWithPassword(newUser, "newPass")))
             .andExpect(status().isCreated());
@@ -141,7 +141,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(ADMIN_USER_REST_URL))
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
             .andExpect(USER_MATCHER.contentJson(admin, guest, user));
@@ -163,7 +163,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void createInvalid() throws Exception {
         User invalid = new User(null, null, "", "newPass", Role.USER, Role.ADMIN);
-        perform(MockMvcRequestBuilders.post(REST_URL)
+        perform(MockMvcRequestBuilders.post(ADMIN_USER_REST_URL)
                                       .contentType(MediaType.APPLICATION_JSON)
                                       .content(jsonWithPassword(invalid, "newPass")))
             .andDo(print())
@@ -213,7 +213,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = ADMIN_MAIL)
     void createDuplicate() throws Exception {
         User expected = new User(null, "New", USER_MAIL, "newPass", Role.USER, Role.ADMIN);
-        perform(MockMvcRequestBuilders.post(REST_URL)
+        perform(MockMvcRequestBuilders.post(ADMIN_USER_REST_URL)
                                       .contentType(MediaType.APPLICATION_JSON)
                                       .content(jsonWithPassword(expected, "newPass")))
             .andDo(print())

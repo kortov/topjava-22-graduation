@@ -27,10 +27,10 @@ import static ru.kortov.topjava.graduation.util.validation.ValidationUtil.assure
 import static ru.kortov.topjava.graduation.util.validation.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = AdminUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = AdminUserController.ADMIN_USER_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminUserController extends AbstractUserController {
 
-    static final String REST_URL = "/api/admin/users";
+    static final String ADMIN_USER_REST_URL = "/api/admin/users";
 
     @Override
     @GetMapping("/{id}")
@@ -57,7 +57,7 @@ public class AdminUserController extends AbstractUserController {
         checkNew(user);
         User created = prepareAndSave(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                                                          .path(REST_URL + "/{id}")
+                                                          .path(ADMIN_USER_REST_URL + "/{id}")
                                                           .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }

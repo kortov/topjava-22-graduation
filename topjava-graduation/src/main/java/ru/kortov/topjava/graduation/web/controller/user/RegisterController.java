@@ -17,11 +17,12 @@ import ru.kortov.topjava.graduation.util.UsersUtil;
 import java.net.URI;
 
 import static ru.kortov.topjava.graduation.util.validation.ValidationUtil.checkNew;
+import static ru.kortov.topjava.graduation.web.controller.user.ProfileController.PROFILE_REST_URL;
 
 @RestController
-@RequestMapping(value = RegisterController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = RegisterController.REGISTER_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegisterController extends AbstractUserController {
-    static final String REST_URL = "/api/register";
+    static final String REGISTER_REST_URL = "/api/register";
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
@@ -30,7 +31,7 @@ public class RegisterController extends AbstractUserController {
         checkNew(userTo);
         User created = prepareAndSave(UsersUtil.createNewFromTo(userTo));
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                                                          .path(REST_URL).build().toUri();
+                                                          .path(PROFILE_REST_URL).build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 }

@@ -34,6 +34,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 @Entity
+// TODO: rename to profile
 @Table(name = "users")
 @Getter
 @Setter
@@ -67,7 +68,7 @@ public class User extends NamedEntity implements HasIdAndEmail, Serializable {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role",
         joinColumns = @JoinColumn(name = "user_id"),
-        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "uk_user_role"))
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "uc_user_role"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinColumn

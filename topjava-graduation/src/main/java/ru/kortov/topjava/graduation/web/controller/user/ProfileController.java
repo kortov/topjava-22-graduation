@@ -20,9 +20,9 @@ import ru.kortov.topjava.graduation.web.AuthUser;
 import static ru.kortov.topjava.graduation.util.validation.ValidationUtil.assureIdConsistent;
 
 @RestController
-@RequestMapping(value = ProfileController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = ProfileController.PROFILE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileController extends AbstractUserController {
-    static final String REST_URL = "/api/profile";
+    static final String PROFILE_REST_URL = "/api/profile";
 
     @GetMapping
     public User get(@AuthenticationPrincipal AuthUser authUser) {

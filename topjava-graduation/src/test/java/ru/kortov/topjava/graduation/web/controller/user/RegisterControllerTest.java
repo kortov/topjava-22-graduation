@@ -14,7 +14,7 @@ import ru.kortov.topjava.graduation.web.AbstractControllerTest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.kortov.topjava.graduation.web.controller.user.RegisterController.REST_URL;
+import static ru.kortov.topjava.graduation.web.controller.user.RegisterController.REGISTER_REST_URL;
 
 class RegisterControllerTest extends AbstractControllerTest {
 
@@ -25,7 +25,7 @@ class RegisterControllerTest extends AbstractControllerTest {
     void register() throws Exception {
         UserTo newTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword", 1500);
         User newUser = UsersUtil.createNewFromTo(newTo);
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+        ResultActions action = perform(MockMvcRequestBuilders.post(REGISTER_REST_URL)
                                                              .contentType(MediaType.APPLICATION_JSON)
                                                              .content(JsonUtil.writeValue(newTo)))
             .andDo(print())
@@ -41,7 +41,7 @@ class RegisterControllerTest extends AbstractControllerTest {
     @Test
     void registerInvalid() throws Exception {
         UserTo newTo = new UserTo(null, null, null, null, 1);
-        perform(MockMvcRequestBuilders.post(REST_URL)
+        perform(MockMvcRequestBuilders.post(REGISTER_REST_URL)
                                       .contentType(MediaType.APPLICATION_JSON)
                                       .content(JsonUtil.writeValue(newTo)))
             .andDo(print())

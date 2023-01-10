@@ -1,6 +1,5 @@
 package ru.kortov.topjava.graduation.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +27,6 @@ public abstract class BaseEntity implements Persistable<Integer>, HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(hidden = true)
     protected Integer id;
 
     // doesn't work for hibernate lazy proxy
