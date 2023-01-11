@@ -47,13 +47,13 @@ public class AdminUserController extends AbstractUserController {
 
     @GetMapping
     public List<User> getAll() {
-        log.info("getAll");
-        return repository.findAll(Sort.by(Sort.Direction.ASC, "name", "email"));
+        log.info("getAll users");
+        return userRepository.findAll(Sort.by(Sort.Direction.ASC, "name", "email"));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
-        log.info("create {}", user);
+        log.info("create user {}", user);
         checkNew(user);
         User created = prepareAndSave(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -72,16 +72,16 @@ public class AdminUserController extends AbstractUserController {
 
     @GetMapping("/by-email")
     public ResponseEntity<User> getByEmail(@RequestParam String email) {
-        log.info("getByEmail {}", email);
-        return ResponseEntity.of(repository.findByEmailIgnoreCase(email));
+        log.info("getByEmail user {}", email);
+        return ResponseEntity.of(userRepository.findByEmailIgnoreCase(email));
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void enable(@PathVariable int id, @RequestParam boolean enabled) {
-        log.info(enabled ? "enable {}" : "disable {}", id);
-        User user = repository.getExisted(id);
+        log.info(enabled ? "enable user {}" : "disable user {}", id);
+        User user = userRepository.getExisted(id);
         user.setEnabled(enabled);
     }
 }

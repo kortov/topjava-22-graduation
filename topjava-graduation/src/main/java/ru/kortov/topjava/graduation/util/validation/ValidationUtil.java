@@ -1,8 +1,6 @@
 package ru.kortov.topjava.graduation.util.validation;
 
 import lombok.experimental.UtilityClass;
-import org.springframework.core.NestedExceptionUtils;
-import org.springframework.lang.NonNull;
 import ru.kortov.topjava.graduation.HasId;
 import ru.kortov.topjava.graduation.error.IllegalRequestDataException;
 
@@ -37,10 +35,4 @@ public class ValidationUtil {
         return obj;
     }
 
-    //  https://stackoverflow.com/a/65442410/548473
-    @NonNull
-    public static Throwable getRootCause(@NonNull Throwable t) {
-        Throwable rootCause = NestedExceptionUtils.getRootCause(t);
-        return rootCause != null ? rootCause : t;
-    }
 }

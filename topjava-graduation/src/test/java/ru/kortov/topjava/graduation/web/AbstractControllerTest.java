@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 //https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing-spring-boot-applications
 @SpringBootTest
-// TODO: remove transactional
 @Transactional
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

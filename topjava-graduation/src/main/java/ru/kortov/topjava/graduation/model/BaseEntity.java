@@ -17,7 +17,6 @@ import org.springframework.util.Assert;
 import ru.kortov.topjava.graduation.HasId;
 
 @MappedSuperclass
-//  https://stackoverflow.com/a/6084701/548473
 @Access(AccessType.FIELD)
 @Getter
 @Setter

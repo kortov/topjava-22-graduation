@@ -9,16 +9,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.extern.slf4j.Slf4j;
-import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.ProblemDetail;
 import ru.kortov.topjava.graduation.util.JsonUtil;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
@@ -28,13 +24,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 @EnableCaching
 @Slf4j
 public class AppConfiguration {
-
-    @Profile("!test")
-    @Bean(initMethod = "start", destroyMethod = "stop")
-    Server h2Server() throws SQLException {
-        log.info("Start H2 TCP server");
-        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
-    }
 
     //    https://stackoverflow.com/a/74630129/548473
     @JsonAutoDetect(fieldVisibility = NONE, getterVisibility = ANY)

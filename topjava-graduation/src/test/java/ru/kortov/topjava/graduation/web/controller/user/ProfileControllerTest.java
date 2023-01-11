@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.kortov.topjava.graduation.model.User;
 import ru.kortov.topjava.graduation.repository.UserRepository;
@@ -86,6 +87,33 @@ class ProfileControllerTest extends AbstractControllerTest {
             .andDo(print())
             .andExpect(status().isUnprocessableEntity())
             .andExpect(content().string(containsString(EXCEPTION_DUPLICATE_EMAIL)));
+    }
+
+    @Test
+    void register() throws Exception {
+        UserTo newTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword", 1500);
+        User newUser = UsersUtil.createNewFromTo(newTo);
+        ResultActions action = perform(MockMvcRequestBuilders.post(PROFILE_REST_URL)
+                                                             .contentType(MediaType.APPLICATION_JSON)
+                                                             .content(JsonUtil.writeValue(newTo)))
+            .andDo(print())
+            .andExpect(status().isCreated());
+
+        User created = USER_MATCHER.readFromJson(action);
+        int newId = created.id();
+        newUser.setId(newId);
+        USER_MATCHER.assertMatch(created, newUser);
+        USER_MATCHER.assertMatch(userRepository.getExisted(newId), newUser);
+    }
+
+    @Test
+    void registerInvalid() throws Exception {
+        UserTo newTo = new UserTo(null, null, null, null, 1);
+        perform(MockMvcRequestBuilders.post(PROFILE_REST_URL)
+                                      .contentType(MediaType.APPLICATION_JSON)
+                                      .content(JsonUtil.writeValue(newTo)))
+            .andDo(print())
+            .andExpect(status().isUnprocessableEntity());
     }
 
 }

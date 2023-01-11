@@ -16,7 +16,7 @@ public abstract class AbstractUserController {
     protected final Logger log = getLogger(getClass());
 
     @Autowired
-    protected UserRepository repository;
+    protected UserRepository userRepository;
 
     @Autowired
     private UniqueMailValidator emailValidator;
@@ -27,16 +27,16 @@ public abstract class AbstractUserController {
     }
 
     public ResponseEntity<User> get(int id) {
-        log.info("get {}", id);
-        return ResponseEntity.of(repository.findById(id));
+        log.info("get user {}", id);
+        return ResponseEntity.of(userRepository.findById(id));
     }
 
     public void delete(int id) {
-        log.info("delete {}", id);
-        repository.deleteExisted(id);
+        log.info("delete user {}", id);
+        userRepository.deleteExisted(id);
     }
 
     protected User prepareAndSave(User user) {
-        return repository.save(UsersUtil.prepareToSave(user));
+        return userRepository.save(UsersUtil.prepareToSave(user));
     }
 }

@@ -34,7 +34,6 @@ import java.util.EnumSet;
 import java.util.Set;
 
 @Entity
-// TODO: rename to profile
 @Table(name = "users")
 @Getter
 @Setter

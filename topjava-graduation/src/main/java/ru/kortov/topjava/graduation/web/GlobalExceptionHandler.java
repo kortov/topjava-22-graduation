@@ -1,9 +1,11 @@
 package ru.kortov.topjava.graduation.web;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -58,6 +60,26 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> appException(AppException ex, WebRequest request) {
         log.error("ApplicationException: {}", ex.getMessage());
         return createProblemDetailExceptionResponse(ex, ex.getStatusCode(), request);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> entityNotFoundException(EntityNotFoundException ex, WebRequest request) {
+        log.error("EntityNotFoundException: {}", ex.getMessage());
+        return createProblemDetailExceptionResponse(ex, HttpStatus.UNPROCESSABLE_ENTITY, request);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> dataIntegrityViolationException(DataIntegrityViolationException ex,
+                                                                  WebRequest request
+    ) {
+        log.error("DataIntegrityViolationException: {}", ex.getMessage());
+        return createProblemDetailExceptionResponse(ex, HttpStatus.UNPROCESSABLE_ENTITY, request);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> genericException(Exception ex, WebRequest request) {
+        log.error("GenericException: {}", ex.getMessage());
+        return createProblemDetailExceptionResponse(ex, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     private ResponseEntity<Object> createProblemDetailExceptionResponse(Exception ex, HttpStatusCode statusCode,

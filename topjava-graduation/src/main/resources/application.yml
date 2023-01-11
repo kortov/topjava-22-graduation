@@ -1,10 +1,10 @@
 server:
   port: 8080
-server.servlet:
-  encoding:
-    charset: UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly
-    enabled: true # Enable http encoding support
-    force: true
+  servlet:
+    encoding:
+      charset: UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly
+      enabled: true # Enable http encoding support
+      force: true
 spring:
   application:
     name: restaurant-voting-system
@@ -20,10 +20,12 @@ spring:
         format_sql: true
         default_batch_fetch_size: 20
         jdbc.batch_size: 20
+        dialect: org.hibernate.dialect.H2Dialect
   datasource:
     # ImMemory
     url: jdbc:h2:mem:topjava
     #    tcp: jdbc:h2:tcp://localhost:9092/mem:topjava
+    #    jdbc:h2:tcp://localhost:9092/~/topjava
     # Absolute path
     #    url: jdbc:h2:C:/projects/bootjava/db/topjava
     #    tcp: jdbc:h2:tcp://localhost:9092/C:/projects/bootjava/db/topjava
@@ -34,9 +36,15 @@ spring:
     #    tcp: jdbc:h2:tcp://localhost:9092/~/topjava
     username: sa
     password:
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
 
   cache:
-    cache-names: users
+    # todo добавить кешей
+    cache-names: users, menu, menus
     caffeine.spec: maximumSize=5000,expireAfterAccess=60s
 
 logging:
@@ -44,6 +52,7 @@ logging:
     root: INFO
     ru.kortov.topjava: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
+#    com.zaxxer.hikari: DEBUG
 
 springdoc.swagger-ui.path: /
 
