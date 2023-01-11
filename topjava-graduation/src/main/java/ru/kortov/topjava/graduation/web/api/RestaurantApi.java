@@ -9,6 +9,7 @@ import ru.kortov.topjava.graduation.dto.RestaurantDTO;
 
 import java.util.List;
 
+// TODO: remove class
 @Tag(name = "Restaurant admin api")
 public interface RestaurantApi {
 

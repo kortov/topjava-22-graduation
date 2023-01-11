@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.ProblemDetail;
 import ru.kortov.topjava.graduation.util.JsonUtil;
 
@@ -29,7 +28,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 @Slf4j
 public class AppConfiguration {
 
-    @Profile("!test")
+//    @Profile("!test")
     @Bean(initMethod = "start", destroyMethod = "stop")
     Server h2Server() throws SQLException {
         log.info("Start H2 TCP server");
