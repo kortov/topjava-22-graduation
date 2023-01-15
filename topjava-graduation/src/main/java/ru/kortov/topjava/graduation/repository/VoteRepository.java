@@ -13,22 +13,19 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface VoteRepository extends BaseRepository<Vote> {
 
-    @Query("SELECT v FROM Vote v WHERE v.id = :id AND v.user.id = :userId AND v.restaurantId =:restaurantId")
-    Optional<Vote> get(int id, int userId, int restaurantId);
-
     @EntityGraph(attributePaths = {"user"})
     @Query("SELECT v FROM Vote v WHERE v.dateVote=:dateVote AND v.restaurantId=:restaurantId ORDER BY v.user.name")
-    List<Vote> getAllForRestaurant(int restaurantId, LocalDate dateVote);
+    List<Vote> findAllForRestaurant(int restaurantId, LocalDate dateVote);
 
     @EntityGraph(attributePaths = {"user"})
     @Query("SELECT v FROM Vote v WHERE v.dateVote=:dateVote ORDER BY v.restaurantId, v.user.name")
-    List<Vote> getAll(LocalDate dateVote);
+    List<Vote> findAllByDateVote(LocalDate dateVote);
 
     @Query("SELECT v from Vote v WHERE v.user.id=:userId AND v.dateVote = :voteDay")
-    Optional<Vote> getCurrentByToDayDate(LocalDate voteDay, int userId);
+    Optional<Vote> findByUserAndTodayDate(LocalDate voteDay, int userId);
 
     default Vote checkForToday(int userId) {
-        return getCurrentByToDayDate(LocalDate.now(), userId).orElseThrow(
+        return findByUserAndTodayDate(LocalDate.now(), userId).orElseThrow(
             () -> new EntityNotFoundException(
                 "User id=" + userId + " doesn't have vote on today date=" + LocalDate.now()));
     }

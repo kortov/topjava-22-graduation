@@ -150,7 +150,7 @@ class AdminMenuControllerTest extends AbstractControllerTest {
         expectedUpdated.setId(MenuTestData.MENU1_ID);
         expectedUpdated.setMenuDate(LocalDate.now());
         MenuTestData.MENU_MATCHER.assertMatch(
-            menuRepository.getByDate(MenuTestData.REST_1_MENU_1.getMenuDate(), REST_ID1).orElseThrow(),
+            menuRepository.findByDateAndRestaurant(MenuTestData.REST_1_MENU_1.getMenuDate(), REST_ID1).orElseThrow(),
             expectedUpdated);
     }
 
@@ -170,7 +170,7 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(API_ADMIN_URL_WITH_MENU_ID, REST_ID1, MenuTestData.MENU1_ID))
             .andExpect(status().isNoContent());
-        assertFalse(menuRepository.get(MenuTestData.MENU1_ID, REST_ID1).isPresent());
+        assertFalse(menuRepository.findByIdAndRestaurant(MenuTestData.MENU1_ID, REST_ID1).isPresent());
     }
 
     @Test

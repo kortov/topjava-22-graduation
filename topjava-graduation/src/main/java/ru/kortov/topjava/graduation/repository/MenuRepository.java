@@ -15,25 +15,25 @@ public interface MenuRepository extends BaseRepository<Menu> {
 
     @EntityGraph(attributePaths = {"dishesInMenu"})
     @Query("SELECT m FROM Menu m WHERE m.restaurant.id=:restaurantId ORDER BY m.menuDate DESC")
-    List<Menu> getAllForRestaurant(int restaurantId);
+    List<Menu> findAllForRestaurant(int restaurantId);
 
     @EntityGraph(attributePaths = {"dishesInMenu"})
     @Query("SELECT m FROM Menu m WHERE m.id = :id and m.restaurant.id = :restaurantId")
-    Optional<Menu> get(int id, int restaurantId);
+    Optional<Menu> findByIdAndRestaurant(int id, int restaurantId);
 
     @Query("SELECT m FROM Menu m WHERE m.id = :id and m.restaurant.id = :restaurantId")
-    Optional<Menu> getWithLazy(int id, int restaurantId);
+    Optional<Menu> findByIdAndRestaurantLazy(int id, int restaurantId);
 
     @EntityGraph(attributePaths = {"dishesInMenu", "restaurant"})
     @Query("SELECT m FROM Menu m WHERE m.restaurant.id = :restaurantId AND m.menuDate = :menuDate")
-    Optional<Menu> getByDate(LocalDate menuDate, int restaurantId);
+    Optional<Menu> findByDateAndRestaurant(LocalDate menuDate, int restaurantId);
 
     @EntityGraph(attributePaths = {"dishesInMenu", "restaurant"})
-    @Query("SELECT m FROM Menu m WHERE m.menuDate = :menuDate ORDER BY m.restaurant.id, m.menuDate")
+    @Query("SELECT m FROM Menu m WHERE m.menuDate = :menuDate ORDER BY m.restaurant.id")
     List<Menu> getAllByDate(LocalDate menuDate);
 
     default Menu checkBelong(int id, int restaurantId) {
-        return getWithLazy(id, restaurantId).orElseThrow(
+        return findByIdAndRestaurantLazy(id, restaurantId).orElseThrow(
             () -> new DataConflictException("Menu id=" + id + " doesn't belong to Restaurant id=" + restaurantId));
     }
 }

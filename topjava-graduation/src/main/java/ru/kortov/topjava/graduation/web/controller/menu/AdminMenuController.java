@@ -48,7 +48,7 @@ public class AdminMenuController extends AbstractMenuController {
     @GetMapping(API_URL + "/{id}")
     public ResponseEntity<Menu> get(@PathVariable int restaurantId, @PathVariable int id) {
         restaurantRepository.checkExistence(restaurantId);
-        return ResponseEntity.of(menuRepository.get(id, restaurantId));
+        return ResponseEntity.of(menuRepository.findByIdAndRestaurant(id, restaurantId));
     }
 
     @GetMapping(API_URL + "/by-date")
@@ -73,7 +73,7 @@ public class AdminMenuController extends AbstractMenuController {
     public List<Menu> getAllForRestaurant(@PathVariable int restaurantId) {
         log.info("getAll menus for restaurant {}", restaurantId);
         restaurantRepository.checkExistence(restaurantId);
-        return menuRepository.getAllForRestaurant(restaurantId);
+        return menuRepository.findAllForRestaurant(restaurantId);
     }
 
     @PostMapping(value = API_URL, consumes = MediaType.APPLICATION_JSON_VALUE)

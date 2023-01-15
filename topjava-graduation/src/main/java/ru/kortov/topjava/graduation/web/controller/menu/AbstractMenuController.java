@@ -19,7 +19,7 @@ public abstract class AbstractMenuController {
     @Cacheable("menu")
     public ResponseEntity<Menu> getByDate(int restaurantId, LocalDate menuDate) {
         log.info("get menu on date {} for restaurant {}", menuDate, restaurantId);
-        return ResponseEntity.of(menuRepository.getByDate(menuDate, restaurantId));
+        return ResponseEntity.of(menuRepository.findByDateAndRestaurant(menuDate, restaurantId));
     }
 
     @Cacheable("menus")

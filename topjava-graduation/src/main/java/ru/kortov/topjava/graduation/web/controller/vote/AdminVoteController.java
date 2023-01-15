@@ -33,10 +33,10 @@ public class AdminVoteController {
         final var searchDate = voteDate == null ? LocalDate.now() : voteDate;
         if (restaurantId != null) {
             log.info("getAll votes for restaurant id={} on date={}", restaurantId, searchDate);
-            return voteRepository.getAllForRestaurant(restaurantId, searchDate);
+            return voteRepository.findAllForRestaurant(restaurantId, searchDate);
         } else {
             log.info("getAll votes for restaurants on date={}", searchDate);
-            return voteRepository.getAll(searchDate);
+            return voteRepository.findAllByDateVote(searchDate);
         }
     }
 

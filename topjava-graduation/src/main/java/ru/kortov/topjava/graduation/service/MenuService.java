@@ -44,7 +44,7 @@ public class MenuService {
 
     public Set<Integer> extractDishIds(MenuTo menuTo, int restaurantId) {
         Set<Integer> dishIds = new HashSet<>(menuTo.getDishIds());
-        Set<Integer> idsInDb = dishRepository.getAllIdsForRestaurant(restaurantId);
+        Set<Integer> idsInDb = dishRepository.findAllIdsForRestaurant(restaurantId);
         dishIds.removeAll(idsInDb);
         if (!dishIds.isEmpty()) {
             throw new DataConflictException(

@@ -12,17 +12,15 @@ import java.util.Set;
 @Transactional(readOnly = true)
 public interface DishRepository extends BaseRepository<Dish> {
 
-    @Query("SELECT d FROM Dish d WHERE d.restaurantId=:restaurantId ORDER BY d.name")
-    List<Dish> getAll(int restaurantId);
+    List<Dish> findAllByRestaurantIdOrderByName(int restaurantId);
 
     @Query("SELECT d.id FROM Dish d WHERE d.restaurantId=:restaurantId")
-    Set<Integer> getAllIdsForRestaurant(int restaurantId);
+    Set<Integer> findAllIdsForRestaurant(int restaurantId);
 
-    @Query("SELECT d FROM Dish d WHERE d.id = :id and d.restaurantId = :restaurantId")
-    Optional<Dish> get(int id, int restaurantId);
+    Optional<Dish> findByIdAndRestaurantId(int id, int restaurantId);
 
     default Dish checkBelong(int id, int restaurantId) {
-        return get(id, restaurantId).orElseThrow(
+        return findByIdAndRestaurantId(id, restaurantId).orElseThrow(
             () -> new DataConflictException("Dish id=" + id + " doesn't belong to Restaurant id=" + restaurantId));
     }
 }

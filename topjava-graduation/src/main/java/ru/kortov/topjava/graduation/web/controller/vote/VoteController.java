@@ -44,7 +44,7 @@ public class VoteController {
         final var userId = authUser.id();
         final var today = LocalDate.now();
         log.info("get current vote on today={} for user id={}", today, userId);
-        return ResponseEntity.of(voteRepository.getCurrentByToDayDate(today, userId));
+        return ResponseEntity.of(voteRepository.findByUserAndTodayDate(today, userId));
     }
 
     @PostMapping()

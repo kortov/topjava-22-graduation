@@ -42,13 +42,13 @@ public class AdminDishController {
     @GetMapping("/{id}")
     public ResponseEntity<Dish> get(@PathVariable int restaurantId, @PathVariable int id) {
         log.info("get dish {} for restaurant {}", id, restaurantId);
-        return ResponseEntity.of(dishRepository.get(id, restaurantId));
+        return ResponseEntity.of(dishRepository.findByIdAndRestaurantId(id, restaurantId));
     }
 
     @GetMapping
     public List<Dish> getAll(@PathVariable int restaurantId) {
         log.info("getAll for restaurant {}", restaurantId);
-        return dishRepository.getAll(restaurantId);
+        return dishRepository.findAllByRestaurantIdOrderByName(restaurantId);
     }
 
     @Transactional

@@ -152,7 +152,7 @@ class AdminDishControllerTest extends AbstractControllerTest {
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(API_URL_WITH_DISH_ID, REST_ID1, DishTestData.REST1_DISH1_ID))
             .andExpect(status().isNoContent());
-        assertFalse(dishRepository.get(DishTestData.REST1_DISH1_ID, REST_ID1).isPresent());
+        assertFalse(dishRepository.findByIdAndRestaurantId(DishTestData.REST1_DISH1_ID, REST_ID1).isPresent());
     }
 
     @Test
