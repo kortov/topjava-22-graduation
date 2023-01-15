@@ -1,5 +1,6 @@
 package ru.kortov.topjava.graduation.web.controller.vote;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class AdminVoteController {
     private final VoteRepository voteRepository;
 
     @GetMapping()
+    @Operation(summary = "Get all votes by date", description = "Empty voteDate defaults to today")
     public List<Vote> getAll(@RequestParam @Nullable Integer restaurantId,
                              @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate voteDate
     ) {

@@ -52,7 +52,7 @@ public class AdminMenuController extends AbstractMenuController {
     }
 
     @GetMapping(API_URL + "/by-date")
-    @Operation(summary = "Get restaurant's menu by date")
+    @Operation(summary = "Get restaurant's menu by date", description = "Empty menuDate defaults to today")
     @Override
     public ResponseEntity<Menu> getByDate(@PathVariable int restaurantId,
                                           @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate menuDate
@@ -61,7 +61,7 @@ public class AdminMenuController extends AbstractMenuController {
     }
 
     @GetMapping("/api/admin/menus/by-date")
-    @Operation(summary = "Get all menus by date")
+    @Operation(summary = "Get all menus by date", description = "Empty menuDate defaults to today")
     @Override
     public List<Menu> getAllByDate(
         @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate menuDate
