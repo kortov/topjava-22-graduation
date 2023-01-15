@@ -73,6 +73,7 @@ public class AdminMenuController extends AbstractMenuController {
 
     @PostMapping(value = API_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     @CacheEvict(allEntries = true)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Menu> createWithLocation(@Valid @RequestBody MenuTo menuTo, @PathVariable int restaurantId) {
         log.info("create menu {} for restaurant {}", menuTo, restaurantId);
         ValidationUtil.checkNew(menuTo);

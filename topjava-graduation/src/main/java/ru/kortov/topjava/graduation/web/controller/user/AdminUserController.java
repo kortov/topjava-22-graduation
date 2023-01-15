@@ -52,6 +52,7 @@ public class AdminUserController extends AbstractUserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
         log.info("create user {}", user);
         checkNew(user);

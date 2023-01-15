@@ -51,6 +51,7 @@ public class AdminDishController {
 
     @Transactional
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Dish> createWithLocation(@PathVariable int restaurantId, @Valid @RequestBody Dish dish) {
         log.info("create dish {} for restaurant {}", dish, restaurantId);
         ValidationUtil.checkNew(dish);

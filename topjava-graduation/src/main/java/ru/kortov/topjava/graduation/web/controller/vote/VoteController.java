@@ -44,6 +44,7 @@ public class VoteController {
     }
 
     @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Vote> createWithLocation(@AuthenticationPrincipal AuthUser authUser,
                                                    @RequestParam int restaurantId
     ) {
