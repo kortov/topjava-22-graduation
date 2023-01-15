@@ -52,7 +52,7 @@ public class AdminMenuController extends AbstractMenuController {
     }
 
     @GetMapping(API_URL + "/by-date")
-    @Operation(summary = "Get restaurant menu by date")
+    @Operation(summary = "Get restaurant's menu by date")
     @Override
     public ResponseEntity<Menu> getByDate(@PathVariable int restaurantId,
                                           @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate menuDate

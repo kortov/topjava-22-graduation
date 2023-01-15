@@ -23,7 +23,7 @@ import java.util.List;
 public class MenuController extends AbstractMenuController {
 
     @GetMapping("/api/restaurants/{restaurantId}/menus/for-today")
-    @Operation(summary = "Get restaurant menu for today")
+    @Operation(summary = "Get restaurant's menu for today")
     public ResponseEntity<Menu> getByDate(@PathVariable int restaurantId) {
         return super.getByDate(restaurantId, LocalDate.now());
     }
