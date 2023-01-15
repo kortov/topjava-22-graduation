@@ -31,7 +31,7 @@ class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = UserTestData.USER_MAIL)
-    void getCurrentByToDayDate() throws Exception {
+    void getByUserAndTodayDate() throws Exception {
         perform(MockMvcRequestBuilders.get(VOTES_API_URL + "/for-today"))
             .andExpect(status().isOk())
             .andDo(print())

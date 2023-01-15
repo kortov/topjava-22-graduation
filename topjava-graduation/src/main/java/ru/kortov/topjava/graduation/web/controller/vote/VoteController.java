@@ -40,7 +40,7 @@ public class VoteController {
 
     @GetMapping("/for-today")
     @Operation(summary = "User's vote for today")
-    public ResponseEntity<Vote> getCurrentByToDayDate(@AuthenticationPrincipal AuthUser authUser) {
+    public ResponseEntity<Vote> getByUserAndTodayDate(@AuthenticationPrincipal AuthUser authUser) {
         final var userId = authUser.id();
         final var today = LocalDate.now();
         log.info("get current vote on today={} for user id={}", today, userId);
