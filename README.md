@@ -25,7 +25,7 @@ Each restaurant provides a new menu each day.
 ---
 Run: `mvn spring-boot:run` in a root directory.
 
-  [REST API documentation](http://localhost:8080/swagger-ui.html)  
+[REST API documentation](http://localhost:8080/)  
 Credentials:
 ```
 Admin: admin@gmail.com / admin
