@@ -28,7 +28,7 @@ public class MenuService {
     public void update(MenuTo menuTo, int restaurantId, int menuId) {
         Menu menu = menuRepository.checkBelong(menuId, restaurantId);
         List<Dish> createdDishesInMenu = MenuUtil.createDishesInMenu(
-            dishRepository.findAllById(getIds(menuTo, restaurantId)));
+            dishRepository.findAllById(extractDishIds(menuTo, restaurantId)));
         List<Dish> dishesInMenu = menu.getDishesInMenu();
         dishesInMenu.clear();
         menuRepository.flush();
@@ -38,11 +38,11 @@ public class MenuService {
     @Transactional
     public Menu create(MenuTo menuTo, int restaurantId, LocalDate menuDate) {
         return menuRepository.save(MenuUtil.createMenu(restaurantRepository.checkExistence(restaurantId),
-                                                       dishRepository.findAllById(getIds(menuTo, restaurantId)),
+                                                       dishRepository.findAllById(extractDishIds(menuTo, restaurantId)),
                                                        menuDate));
     }
 
-    public Set<Integer> getIds(MenuTo menuTo, int restaurantId) {
+    public Set<Integer> extractDishIds(MenuTo menuTo, int restaurantId) {
         Set<Integer> dishIds = new HashSet<>(menuTo.getDishIds());
         Set<Integer> idsInDb = dishRepository.getAllIdsForRestaurant(restaurantId);
         dishIds.removeAll(idsInDb);
