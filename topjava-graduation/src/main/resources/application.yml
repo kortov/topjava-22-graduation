@@ -43,7 +43,6 @@ spring:
         web-allow-others: true
 
   cache:
-    # todo добавить кешей
     cache-names: users, menu, menus
     caffeine.spec: maximumSize=5000,expireAfterAccess=60s
 

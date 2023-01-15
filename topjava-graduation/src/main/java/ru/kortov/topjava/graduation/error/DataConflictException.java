@@ -1,8 +1,9 @@
 package ru.kortov.topjava.graduation.error;
 
-// TODO: extend AppException
-public class DataConflictException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class DataConflictException extends AppException {
     public DataConflictException(String msg) {
-        super(msg);
+        super(HttpStatus.CONFLICT, msg);
     }
 }
