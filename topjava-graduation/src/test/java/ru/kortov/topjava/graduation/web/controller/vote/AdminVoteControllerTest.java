@@ -43,8 +43,8 @@ class AdminVoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = UserTestData.ADMIN_MAIL)
     void getAllForRestaurant() throws Exception {
         perform(MockMvcRequestBuilders.get(ADMIN_VOTES_API_URL)
-                                      .param(RESTAURANT_PARAM, String.valueOf(RestaurantTestData.REST_ID1))
-                                      .param("voteDate", String.valueOf(LocalDate.now())))
+                                      .queryParam(RESTAURANT_PARAM, String.valueOf(RestaurantTestData.REST_ID1))
+                                      .queryParam("voteDate", String.valueOf(LocalDate.now())))
             .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

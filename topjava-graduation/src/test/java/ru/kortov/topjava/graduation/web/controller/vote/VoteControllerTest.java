@@ -66,7 +66,7 @@ class VoteControllerTest extends AbstractControllerTest {
         Vote newVote = VoteTestData.getNew();
         ResultActions action = perform(
             MockMvcRequestBuilders.post(VOTES_API_URL)
-                                  .queryParam(RESTAURANT_PARAM, RestaurantTestData.REST_ID1.toString()))
+                                  .param(RESTAURANT_PARAM, RestaurantTestData.REST_ID1.toString()))
             .andExpect(status().isCreated());
 
         Vote created = VoteTestData.VOTE_MATCHER.readFromJson(action);
@@ -80,8 +80,8 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = UserTestData.GUEST_MAIL)
     void createInvalid() throws Exception {
         perform(MockMvcRequestBuilders.post(VOTES_API_URL)
-                                      .queryParam(RESTAURANT_PARAM,
-                                                  RestaurantTestData.INVALID_RESTAURANT_ID.toString()))
+                                      .param(RESTAURANT_PARAM,
+                                             RestaurantTestData.INVALID_RESTAURANT_ID.toString()))
             .andDo(print())
             .andExpect(status().isNotFound());
     }
@@ -91,7 +91,7 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = UserTestData.USER_MAIL)
     void createDuplicate() throws Exception {
         perform(MockMvcRequestBuilders.post(VOTES_API_URL)
-                                      .queryParam(RESTAURANT_PARAM, RestaurantTestData.REST_ID1.toString()))
+                                      .param(RESTAURANT_PARAM, RestaurantTestData.REST_ID1.toString()))
             .andDo(print())
             .andExpect(status().isUnprocessableEntity());
     }
@@ -100,8 +100,8 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = UserTestData.USER_MAIL)
     void updateInvalid() throws Exception {
         perform(MockMvcRequestBuilders.patch(VOTES_API_URL)
-                                      .queryParam(RESTAURANT_PARAM,
-                                                  RestaurantTestData.INVALID_RESTAURANT_ID.toString()))
+                                      .param(RESTAURANT_PARAM,
+                                             RestaurantTestData.INVALID_RESTAURANT_ID.toString()))
             .andDo(print())
             .andExpect(status().isNotFound());
     }
@@ -112,7 +112,7 @@ class VoteControllerTest extends AbstractControllerTest {
         VoteTestData.setVoteDeadLineTime(LocalTime.now().plusSeconds(1));
         perform(
             MockMvcRequestBuilders.patch(VOTES_API_URL)
-                                  .queryParam(RESTAURANT_PARAM, RestaurantTestData.REST_ID2.toString()))
+                                  .param(RESTAURANT_PARAM, RestaurantTestData.REST_ID2.toString()))
             .andExpect(status().isNoContent());
 
         assertEquals(RestaurantTestData.REST_ID2,

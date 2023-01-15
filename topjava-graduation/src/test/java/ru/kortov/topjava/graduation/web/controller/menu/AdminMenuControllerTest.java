@@ -129,7 +129,7 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     void createDuplicate() throws Exception {
         MenuTo invalid = new MenuTo(null, new HashSet<>(List.of(3, 2, 1)));
         perform(MockMvcRequestBuilders.post(API_ADMIN_URL, REST_ID1)
-                                      .queryParam("menuDate", MenuTestData.REST_1_MENU_1.getMenuDate().toString())
+                                      .param("menuDate", MenuTestData.REST_1_MENU_1.getMenuDate().toString())
                                       .contentType(MediaType.APPLICATION_JSON)
                                       .content(JsonUtil.writeValue(invalid)))
             .andDo(print())
