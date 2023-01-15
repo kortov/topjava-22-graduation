@@ -1,5 +1,6 @@
 package ru.kortov.topjava.graduation.web.controller.user;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +28,7 @@ import static ru.kortov.topjava.graduation.util.validation.ValidationUtil.checkN
 
 @RestController
 @RequestMapping(value = ProfileController.PROFILE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "Profile user API")
 public class ProfileController extends AbstractUserController {
     static final String PROFILE_REST_URL = "/api/profile";
 

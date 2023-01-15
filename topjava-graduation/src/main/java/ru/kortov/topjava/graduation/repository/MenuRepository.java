@@ -30,7 +30,7 @@ public interface MenuRepository extends BaseRepository<Menu> {
 
     @EntityGraph(attributePaths = {"dishesInMenu", "restaurant"})
     @Query("SELECT m FROM Menu m WHERE m.menuDate = :menuDate ORDER BY m.restaurant.id, m.menuDate")
-    List<Menu> getAllForRestaurantsByDate(LocalDate menuDate);
+    List<Menu> getAllByDate(LocalDate menuDate);
 
     default Menu checkBelong(int id, int restaurantId) {
         return getWithLazy(id, restaurantId).orElseThrow(

@@ -1,5 +1,7 @@
 package ru.kortov.topjava.graduation.web.controller.menu;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +39,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @CacheConfig(cacheNames = {"menu", "menus"})
+@Tag(name = "Menu admin API")
 public class AdminMenuController extends AbstractMenuController {
     static final String API_URL = "/api/admin/restaurants/{restaurantId}/menus";
     private final MenuService service;
@@ -49,6 +52,7 @@ public class AdminMenuController extends AbstractMenuController {
     }
 
     @GetMapping(API_URL + "/by-date")
+    @Operation(summary = "Get restaurant menu by date")
     @Override
     public ResponseEntity<Menu> getByDate(@PathVariable int restaurantId,
                                           @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate menuDate
@@ -57,11 +61,12 @@ public class AdminMenuController extends AbstractMenuController {
     }
 
     @GetMapping("/api/admin/menus/by-date")
+    @Operation(summary = "Get all menus by date")
     @Override
-    public List<Menu> getAllForRestaurantsByDate(
+    public List<Menu> getAllByDate(
         @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate menuDate
     ) {
-        return super.getAllForRestaurantsByDate(menuDate == null ? LocalDate.now() : menuDate);
+        return super.getAllByDate(menuDate == null ? LocalDate.now() : menuDate);
     }
 
     @GetMapping(API_URL)

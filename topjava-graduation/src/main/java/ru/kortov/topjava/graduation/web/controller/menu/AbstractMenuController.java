@@ -23,8 +23,8 @@ public abstract class AbstractMenuController {
     }
 
     @Cacheable("menus")
-    public List<Menu> getAllForRestaurantsByDate(LocalDate menuDate) {
+    public List<Menu> getAllByDate(LocalDate menuDate) {
         log.info("get menus on date {} for all restaurants", menuDate);
-        return menuRepository.getAllForRestaurantsByDate(menuDate);
+        return menuRepository.getAllByDate(menuDate);
     }
 }

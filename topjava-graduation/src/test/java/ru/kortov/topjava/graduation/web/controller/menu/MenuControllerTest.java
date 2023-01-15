@@ -35,7 +35,7 @@ class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = UserTestData.USER_MAIL)
-    void getAllForRestaurantsByDate() throws Exception {
+    void getAllByDate() throws Exception {
         perform(MockMvcRequestBuilders.get("/api/menus/for-today"))
             .andExpect(status().isOk())
             .andDo(print())

@@ -1,5 +1,6 @@
 package ru.kortov.topjava.graduation.web.controller.restaurant;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @CacheConfig(cacheNames = {"menu", "menus"})
+@Tag(name = "Restaurant admin API")
 public class AdminRestaurantController extends AbstractRestaurantController {
     static final String API_URL = "/api/admin/restaurants";
 

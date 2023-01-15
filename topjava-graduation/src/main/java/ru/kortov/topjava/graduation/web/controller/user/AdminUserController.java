@@ -1,5 +1,7 @@
 package ru.kortov.topjava.graduation.web.controller.user;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,7 @@ import static ru.kortov.topjava.graduation.util.validation.ValidationUtil.checkN
 
 @RestController
 @RequestMapping(value = AdminUserController.ADMIN_USER_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "Profile admin API")
 public class AdminUserController extends AbstractUserController {
 
     static final String ADMIN_USER_REST_URL = "/api/admin/users";
@@ -72,6 +75,7 @@ public class AdminUserController extends AbstractUserController {
     }
 
     @GetMapping("/by-email")
+    @Operation(summary = "Get user by email")
     public ResponseEntity<User> getByEmail(@RequestParam String email) {
         log.info("getByEmail user {}", email);
         return ResponseEntity.of(userRepository.findByEmailIgnoreCase(email));

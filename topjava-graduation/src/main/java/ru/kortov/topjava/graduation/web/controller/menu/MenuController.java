@@ -1,5 +1,7 @@
 package ru.kortov.topjava.graduation.web.controller.menu;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -17,15 +19,18 @@ import java.util.List;
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Menu user API")
 public class MenuController extends AbstractMenuController {
 
     @GetMapping("/api/restaurants/{restaurantId}/menus/for-today")
+    @Operation(summary = "Get restaurant menu for today")
     public ResponseEntity<Menu> getByDate(@PathVariable int restaurantId) {
         return super.getByDate(restaurantId, LocalDate.now());
     }
 
     @GetMapping("/api/menus/for-today")
-    public List<Menu> getAllForRestaurantsByDate() {
-        return super.getAllForRestaurantsByDate(LocalDate.now());
+    @Operation(summary = "Get all menus for today")
+    public List<Menu> getAllByDate() {
+        return super.getAllByDate(LocalDate.now());
     }
 }

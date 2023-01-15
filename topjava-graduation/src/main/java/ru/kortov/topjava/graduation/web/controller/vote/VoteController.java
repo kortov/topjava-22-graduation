@@ -1,5 +1,7 @@
 package ru.kortov.topjava.graduation.web.controller.vote;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,7 @@ import java.time.LocalDateTime;
 @RequestMapping(value = VoteController.API_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Vote user API")
 public class VoteController {
     static final String API_URL = "/api/votes";
 
@@ -36,6 +39,7 @@ public class VoteController {
     private final VoteService service;
 
     @GetMapping("/for-today")
+    @Operation(summary = "User's vote for today")
     public ResponseEntity<Vote> getCurrentByToDayDate(@AuthenticationPrincipal AuthUser authUser) {
         final var userId = authUser.id();
         final var today = LocalDate.now();
@@ -45,6 +49,7 @@ public class VoteController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Vote for a restaurant")
     public ResponseEntity<Vote> createWithLocation(@AuthenticationPrincipal AuthUser authUser,
                                                    @RequestParam int restaurantId
     ) {
@@ -61,6 +66,7 @@ public class VoteController {
 
     @PatchMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Change vote for a restaurant", description = "Vote can be changed only before 11 AM localtime")
     public void update(@AuthenticationPrincipal AuthUser authUser, @RequestParam int restaurantId) {
         final var userId = authUser.id();
         final var now = LocalDateTime.now();

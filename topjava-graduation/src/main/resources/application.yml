@@ -54,7 +54,11 @@ logging:
     org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
 #    com.zaxxer.hikari: DEBUG
 
-springdoc.swagger-ui.path: /
+springdoc:
+  swagger-ui:
+    path: /
+    # https://stackoverflow.com/a/70801397/9466638:
+    tagsSorter: alpha
 
 management:
   endpoints:

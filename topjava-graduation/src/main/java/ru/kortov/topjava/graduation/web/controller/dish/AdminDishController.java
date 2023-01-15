@@ -1,5 +1,6 @@
 package ru.kortov.topjava.graduation.web.controller.dish;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @CacheConfig(cacheNames = {"menu", "menus"})
+@Tag(name = "Dish admin API")
 public class AdminDishController {
     static final String API_URL = "/api/admin/restaurants/{restaurantId}/dishes";
     private final DishRepository dishRepository;

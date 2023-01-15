@@ -1,5 +1,6 @@
 package ru.kortov.topjava.graduation.web.controller.vote;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping(value = AdminVoteController.API_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Vote admin API")
 public class AdminVoteController {
     static final String API_URL = "/api/admin/votes";
 
