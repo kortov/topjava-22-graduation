@@ -14,11 +14,11 @@ import java.util.Optional;
 public interface VoteRepository extends BaseRepository<Vote> {
 
     @EntityGraph(attributePaths = {"user"})
-    @Query("SELECT v FROM Vote v WHERE v.dateVote=:dateVote AND v.restaurantId=:restaurantId ORDER BY v.user.name")
+    @Query("SELECT v FROM Vote v WHERE v.dateVote=:dateVote AND v.restaurantId=:restaurantId ORDER BY v.timeVote")
     List<Vote> findAllForRestaurant(int restaurantId, LocalDate dateVote);
 
     @EntityGraph(attributePaths = {"user"})
-    @Query("SELECT v FROM Vote v WHERE v.dateVote=:dateVote ORDER BY v.restaurantId, v.user.name")
+    @Query("SELECT v FROM Vote v WHERE v.dateVote=:dateVote ORDER BY v.restaurantId, v.timeVote")
     List<Vote> findAllByDateVote(LocalDate dateVote);
 
     @Query("SELECT v from Vote v WHERE v.user.id=:userId AND v.dateVote = :voteDay")
