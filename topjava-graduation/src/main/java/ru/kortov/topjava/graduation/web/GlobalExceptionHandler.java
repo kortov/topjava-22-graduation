@@ -50,6 +50,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, body, headers, HttpStatus.UNPROCESSABLE_ENTITY, request);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(
+        Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request
+    ) {
+        logger.warn("Internal exception: ", ex);
+        return super.handleExceptionInternal(ex, body, headers, statusCode, request);
+    }
+
     @ExceptionHandler(DataConflictException.class)
     public ResponseEntity<Object> dataConflictException(DataConflictException ex, WebRequest request) {
         log.error("DataConflictException: {}", ex.getMessage());
